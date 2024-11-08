@@ -98,33 +98,6 @@ def convert_S(data, s_scale_factor):
         print(f"Error converting S to µV/K: {e}")
         sys.exit(1)
 
-def standard_extraction(data):
-    """Perform standard extraction and save to .dat files."""
-    try:
-        svst_data = data[['T[K]', 'S[µV/K]']]
-        svst_data.to_csv('SvsT.dat', index=False, sep=' ', float_format="%.6f")
-
-        sigmavst_data = data[['T[K]', 'sigma/tau0[1/(ohm*m*s)]']]
-        sigmavst_data.to_csv('sigmavsT.dat', index=False, sep=' ', float_format="%.6f")
-
-        kappaevst_data = data[['T[K]', 'kappae/tau0[W/(m*K*s)]']]
-        kappaevst_data.to_csv('kappaevsT.dat', index=False, sep=' ', float_format="%.6f")
-
-        print("Standard extraction complete. Data saved to 'SvsT.dat', 'sigmavsT.dat', and 'kappaevsT.dat'.\n")
-    except Exception as e:
-        print(f"Error during standard extraction: {e}")
-        sys.exit(1)
-
-def custom_extraction(data, selected_columns, output_file):
-    """Extract selected columns and save to a specified file."""
-    try:
-        extracted_data = data[selected_columns]
-        extracted_data.to_csv(output_file, index=False, sep=' ', float_format="%.6f")
-        print(f"Custom extraction complete. Data saved to '{output_file}'.\n")
-    except Exception as e:
-        print(f"Error during custom extraction: {e}")
-        sys.exit(1)
-
 def get_available_mu_Ef(data):
     """Retrieve and return sorted unique (mu - E_F) values."""
     unique_mu_Ef = np.sort(data['Ef[eV]'].unique())
@@ -288,7 +261,7 @@ def get_multiple_values(prompt, available_values, value_type=float, tolerance=0.
     while True:
         user_input = input(prompt).strip()
         try:
-            input_values = [value_type(val) for val in user_input.split(',')]
+            input_values = [value_type(val) for val in user_input.split(',') if val.strip()]
             matched_values = []
             for val in input_values:
                 closest_val = find_closest_mu_Ef(val, available_values, tolerance)
@@ -315,33 +288,31 @@ def main():
 
     # Set up argument parser for initial data processing
     parser = argparse.ArgumentParser(
-        description="""
-        This script processes a data file to extract, convert, and plot specific columns for analysis.
+        description=r"""
+**BTP2 Data Extraction and Plotting Script**
 
-        **Functionalities:**
-        1. **Unit Conversion:** Checks the unit of Ef (either Rydberg, Hartree, or eV) and converts it to eV if needed.
-        2. **Fermi Energy Adjustment:** Optionally subtracts the provided Fermi energy from Ef[eV].
-        3. **Data Extraction:**
-           - **Standard Extraction:** Extracts predefined columns and saves them to `.dat` files.
-        4. **Plotting Capabilities:**
-           - **Option 1:** Plot S vs (μ - E_F) for chosen temperature(s).
-           - **Option 2:** Plot S vs T for chosen (μ - E_F) value(s).
-           - **Option 3:** Plot σ/τ₀ vs T for chosen (μ - E_F) value(s).
-           - **Option 4:** Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s).
+This script processes a space-separated data file containing various physical properties and generates high-quality plots suitable for publication. It offers functionalities such as unit conversion, Fermi energy adjustment, and multiple plotting options.
 
-        **Input File Format:**
-        - Space-separated text file containing columns:
-          ['Ef[unit]', 'T[K]', 'N[e/uc]', 'DOS(ef)[1/(Ha*uc)]', 'S[V/K]',
-          'sigma/tau0[1/(ohm*m*s)]', 'RH[m**3/C]', 'kappae/tau0[W/(m*K*s)]',
-          'cv[J/(mol*K)]', 'chi[m**3/mol]']
-        - Lines beginning with '#' are treated as comments and ignored.
+**Functionalities:**
+1. **Unit Conversion:** Automatically detects the unit of Ef (Rydberg, Hartree, or eV) and converts it to eV if necessary.
+2. **Fermi Energy Adjustment:** Optionally subtracts the provided Fermi energy from Ef[eV].
+3. **Plotting Capabilities:**
+   - **Option 1:** Plot S vs (μ - E_F) for chosen temperature(s).
+   - **Option 2:** Plot S vs T for chosen (μ - E_F) value(s).
+   - **Option 3:** Plot σ/τ₀ vs T for chosen (μ - E_F) value(s).
+   - **Option 4:** Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s).
+   - **Option 5:** Exit.
 
-        **Usage:**
-        ```bash
-        python BTP2-extract.py -i data.txt
-        ```
-        After running the script, follow the interactive prompts to perform desired operations.
-        """,
+**Input File Format:**
+- Space-separated text file containing columns:
+  ['Ef[unit]', 'T[K]', 'N[e/uc]', 'DOS(ef)[1/(Ha*uc)]', 'S[V/K]',
+  'sigma/tau0[1/(ohm*m*s)]', 'RH[m**3/C]', 'kappae/tau0[W/(m*K*s)]',
+  'cv[J/(mol*K)]', 'chi[m**3/mol]']
+- Lines beginning with '#' are treated as comments and ignored.
+
+**Usage:**
+python BTP2-extract.py -i data.txt
+""",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
 
@@ -413,7 +384,7 @@ def main():
         print("3. Plot σ/τ₀ vs T for chosen (μ - E_F) value(s).")
         print("4. Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s).")
         print("5. Exit.")
-        
+
         choice = get_user_choice("Enter the number corresponding to your choice (1-5): ", ['1', '2', '3', '4', '5'])
         print()
 
@@ -467,11 +438,11 @@ def main():
         else:
             print("Invalid choice. Please select a valid option.\n")
 
-        # Ask if the user wants to make another plot
-        continue_choice = get_user_choice("Do you want to create another plot? (yes/no): ", ['yes', 'no'])
+        # Ask if the user wants to make another plot or perform another action
+        continue_choice = get_user_choice("Do you want to perform another action? (yes/no): ", ['yes', 'no'])
         print()
         if continue_choice == 'no':
-            print("All selected plots have been generated. Exiting the script. Goodbye!")
+            print("All selected actions have been completed. Exiting the script. Goodbye!")
             sys.exit(0)
 
 if __name__ == "__main__":
