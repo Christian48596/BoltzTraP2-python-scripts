@@ -8,4 +8,13 @@ Please cite BoltzTraP2 code
 Computer Physics Communications, Volume 231, 2018, Pages 140-145, ISSN 0010-4655, https://doi.org/10.1016/j.cpc.2018.05.010.
 
 2) cite this repository
-https://github.com/Christian48596/BoltzTraP2-post-processing.
+@software{ChT_BTP2,
+  author = {Tantardini, Christian},
+  doi = {10.5281/zenodo.1234},
+  month = {11},
+  title = {BoltzTraP2-post-processing},
+  url = {https://github.com/Christian48596/BoltzTraP2-post-processing},
+  version = {XX},
+  year = {2024}
+}
+.
