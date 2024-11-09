@@ -47,8 +47,6 @@ def detect_ef_unit(input_file):
                         unit_conversion = 'Ef[eV]'
                         break
         if unit_conversion is None:
-            # Alternatively, infer from data if header is not informative
-            # For simplicity, assuming 'Ef[eV]' if not specified
             print("Ef unit not specified in the header. Assuming 'Ef[eV]'.\n")
             unit_conversion = 'Ef[eV]'
         else:
@@ -68,7 +66,7 @@ def convert_ef_to_eV(data, unit_conversion, rydberg_to_ev, hartree_to_ev):
             data['Ef[eV]'] = data['Ef[unit]'] * hartree_to_ev
             print("Converted Ef from Hartree to eV.\n")
         elif unit_conversion == 'Ef[eV]':
-            data['Ef[eV]'] = data['Ef[unit]']  # Already in eV
+            data['Ef[eV]'] = data['Ef[unit]']
             print("Ef is already in eV. No conversion needed.\n")
         else:
             print("Unknown Ef unit. Cannot convert to eV.")
@@ -113,25 +111,31 @@ def find_closest_mu_Ef(input_value, available_values, tolerance=0.001):
         return None
 
 def plot_S_vs_mu_Ef(data, temperatures, output_dir, palette):
-    """Plot S vs (mu - E_F) for each chosen T."""
+    """Plot S vs (mu - E_F) for each chosen T and save data to CSV."""
     plt.figure(figsize=(10, 7))
     for idx, T in enumerate(temperatures):
         subset = data[data['T[K]'] == T]
         if subset.empty:
             print(f"Warning: No data found for T = {T} K.")
             continue
+
+        # Save the data used for this plot
+        csv_filename = os.path.join(output_dir, f'S_vs_mu_Ef_T_{T}_K.csv')
+        subset.to_csv(csv_filename, index=False)
+        print(f"Data for T = {T} K saved to '{csv_filename}'.")
+
         plt.plot(
             subset['Ef[eV]'], 
             subset['S[µV/K]'], 
             linestyle='-', 
             linewidth=2, 
             color=palette[idx % len(palette)],
-            label=rf'T = {T} K'  # Raw f-string
+            label=rf'T = {T} K'
         )
     if plt.gca().has_data():
-        plt.xlabel(r'$\mu - E_F$ (eV)', fontsize=16)  # Raw string
-        plt.ylabel(r'$S$ ($\mu$V/K)', fontsize=16)    # Raw string
-        plt.title(r'Seebeck Coefficient vs $\mu - E_F$', fontsize=18)  # Raw string
+        plt.xlabel(r'$\mu - E_F$ (eV)', fontsize=16)
+        plt.ylabel(r'$S$ ($\mu$V/K)', fontsize=16)
+        plt.title(r'Seebeck Coefficient vs $\mu - E_F$', fontsize=18)
         plt.legend(title='Temperature (K)', fontsize=14, title_fontsize=16, loc='upper left', bbox_to_anchor=(1, 1))
         plt.grid(True, which='both', linestyle='--', linewidth=0.5)
         plt.tight_layout()
@@ -146,20 +150,26 @@ def plot_S_vs_mu_Ef(data, temperatures, output_dir, palette):
         print("No plots were generated for S vs μ - E_F due to missing data.\n")
 
 def plot_S_vs_T(data, mu_Ef_values, output_dir, palette, available_mu_Ef, tolerance=0.001):
-    """Plot S vs T for each chosen (mu - E_F)."""
+    """Plot S vs T for each chosen (mu - E_F) and save data to CSV."""
     plt.figure(figsize=(10, 7))
     for idx, mu_Ef in enumerate(mu_Ef_values):
         subset = data[np.isclose(data['Ef[eV]'], mu_Ef, atol=tolerance)]
         if subset.empty:
             print(f"Warning: No data found for μ - E_F = {mu_Ef:.3f} eV within tolerance.")
             continue
+
+        # Save the data used for this plot
+        csv_filename = os.path.join(output_dir, f'S_vs_T_mu_Ef_{mu_Ef:.3f}_eV.csv')
+        subset.to_csv(csv_filename, index=False)
+        print(f"Data for μ - E_F = {mu_Ef:.3f} eV saved to '{csv_filename}'.")
+
         plt.plot(
             subset['T[K]'], 
             subset['S[µV/K]'], 
             linestyle='-', 
             linewidth=2, 
             color=palette[idx % len(palette)],
-            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'  # Raw f-string with three decimal places
+            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'
         )
     if plt.gca().has_data():
         plt.xlabel('Temperature (K)', fontsize=16)
@@ -179,20 +189,26 @@ def plot_S_vs_T(data, mu_Ef_values, output_dir, palette, available_mu_Ef, tolera
         print("No plots were generated for S vs T due to missing data.\n")
 
 def plot_sigma_vs_T(data, mu_Ef_values, output_dir, palette, available_mu_Ef, tolerance=0.001):
-    """Plot sigma/tau0 vs T for each chosen (mu - E_F)."""
+    """Plot sigma/tau0 vs T for each chosen (mu - E_F) and save data to CSV."""
     plt.figure(figsize=(10, 7))
     for idx, mu_Ef in enumerate(mu_Ef_values):
         subset = data[np.isclose(data['Ef[eV]'], mu_Ef, atol=tolerance)]
         if subset.empty:
             print(f"Warning: No data found for μ - E_F = {mu_Ef:.3f} eV within tolerance.")
             continue
+
+        # Save the data used for this plot
+        csv_filename = os.path.join(output_dir, f'sigma_vs_T_mu_Ef_{mu_Ef:.3f}_eV.csv')
+        subset.to_csv(csv_filename, index=False)
+        print(f"Data for μ - E_F = {mu_Ef:.3f} eV saved to '{csv_filename}'.")
+
         plt.plot(
             subset['T[K]'], 
             subset['sigma/tau0[1/(ohm*m*s)]'], 
             linestyle='-', 
             linewidth=2, 
             color=palette[idx % len(palette)],
-            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'  # Raw f-string with three decimal places
+            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'
         )
     if plt.gca().has_data():
         plt.xlabel('Temperature (K)', fontsize=16)
@@ -212,20 +228,26 @@ def plot_sigma_vs_T(data, mu_Ef_values, output_dir, palette, available_mu_Ef, to
         print("No plots were generated for σ/τ₀ vs T due to missing data.\n")
 
 def plot_kappae_vs_T(data, mu_Ef_values, output_dir, palette, available_mu_Ef, tolerance=0.001):
-    """Plot kappae/tau0 vs T for each chosen (mu - E_F)."""
+    """Plot kappae/tau0 vs T for each chosen (mu - E_F) and save data to CSV."""
     plt.figure(figsize=(10, 7))
     for idx, mu_Ef in enumerate(mu_Ef_values):
         subset = data[np.isclose(data['Ef[eV]'], mu_Ef, atol=tolerance)]
         if subset.empty:
             print(f"Warning: No data found for μ - E_F = {mu_Ef:.3f} eV within tolerance.")
             continue
+
+        # Save the data used for this plot
+        csv_filename = os.path.join(output_dir, f'kappae_vs_T_mu_Ef_{mu_Ef:.3f}_eV.csv')
+        subset.to_csv(csv_filename, index=False)
+        print(f"Data for μ - E_F = {mu_Ef:.3f} eV saved to '{csv_filename}'.")
+
         plt.plot(
             subset['T[K]'], 
             subset['kappae/tau0[W/(m*K*s)]'], 
             linestyle='-', 
             linewidth=2, 
             color=palette[idx % len(palette)],
-            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'  # Raw f-string with three decimal places
+            label=rf'$\mu - E_F$ = {mu_Ef:.3f} eV'
         )
     if plt.gca().has_data():
         plt.xlabel('Temperature (K)', fontsize=16)
@@ -254,10 +276,7 @@ def get_user_choice(prompt, choices):
             print(f"Invalid choice. Please choose from {choices}.\n")
 
 def get_multiple_values(prompt, available_values, value_type=float, tolerance=0.001):
-    """
-    Utility function to get multiple values from the user.
-    It will find the closest available value within the specified tolerance.
-    """
+    """Utility function to get multiple values from the user."""
     while True:
         user_input = input(prompt).strip()
         try:
@@ -282,8 +301,6 @@ def main():
     # Conversion factors
     rydberg_to_ev = 13.605698  # Rydberg to eV
     hartree_to_ev = 27.211386  # Hartree to eV
-
-    # Conversion factor for Seebeck coefficient to µV/K
     s_scale_factor = 1e6  # To display S in units of µV/K
 
     # Set up argument parser for initial data processing
@@ -317,11 +334,7 @@ python BTP2-extract.py -i data.txt
     )
 
     # Required argument
-    parser.add_argument(
-        '-i', '--input', required=True, help='Path to the input file containing the data (e.g., data.txt)'
-    )
-
-    # Parse the arguments
+    parser.add_argument('-i', '--input', required=True, help='Path to the input file containing the data (e.g., data.txt)')
     args = parser.parse_args()
 
     # Load and process data
@@ -350,9 +363,9 @@ python BTP2-extract.py -i data.txt
     plots_dir = 'plots'
     os.makedirs(plots_dir, exist_ok=True)
 
-    # Apply a professional matplotlib style suitable for high-impact journals
-    sns.set_style("whitegrid")  # Cleaner grid
-    palette = sns.color_palette("tab10")  # Distinct and colorblind-friendly palette
+    # Apply a professional matplotlib style
+    sns.set_style("whitegrid")
+    palette = sns.color_palette("tab10")
     mpl.rcParams.update({
         'font.size': 12,
         'axes.labelsize': 16,
@@ -364,32 +377,25 @@ python BTP2-extract.py -i data.txt
         'lines.linewidth': 2,
         'grid.color': '0.8',
         'grid.linestyle': '--',
-        'legend.frameon': False,  # Remove legend frame for a cleaner look
+        'legend.frameon': False
     })
-
-    # Enable LaTeX rendering for better typography
-    # Uncomment the following lines if you have a LaTeX distribution installed
-    # mpl.rcParams['text.usetex'] = True
-    # mpl.rcParams['font.family'] = 'serif'
 
     # Get available (mu - E_F) values
     available_mu_Ef = get_available_mu_Ef(data)
-    # Removed printing of available_mu_Ef as per user request
 
     # Interactive plotting options
     while True:
         print("Select a plotting option:")
-        print("1. Plot S vs (μ - E_F) for chosen T(s).")
-        print("2. Plot S vs T for chosen (μ - E_F) value(s).")
-        print("3. Plot σ/τ₀ vs T for chosen (μ - E_F) value(s).")
-        print("4. Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s).")
+        print("1. Plot S vs (μ - E_F) for chosen T(s) and save .csv file.")
+        print("2. Plot S vs T for chosen (μ - E_F) value(s) and save .csv file.")
+        print("3. Plot σ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.")
+        print("4. Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.")
         print("5. Exit.")
 
         choice = get_user_choice("Enter the number corresponding to your choice (1-5): ", ['1', '2', '3', '4', '5'])
         print()
 
         if choice == '1':
-            # Plot S vs (mu - E_F) for chosen T(s)
             temperatures = []
             while not temperatures:
                 try:
@@ -402,31 +408,28 @@ python BTP2-extract.py -i data.txt
             plot_S_vs_mu_Ef(data, temperatures, plots_dir, palette)
 
         elif choice == '2':
-            # Plot S vs T for chosen (mu - E_F) value(s)
             mu_Ef_values = get_multiple_values(
-                prompt="Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
-                available_values=available_mu_Ef,
-                value_type=float,
+                "Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
+                available_mu_Ef,
+                float,
                 tolerance=0.001
             )
             plot_S_vs_T(data, mu_Ef_values, plots_dir, palette, available_mu_Ef, tolerance=0.001)
 
         elif choice == '3':
-            # Plot sigma/tau0 vs T for chosen (mu - E_F) value(s)
             mu_Ef_values = get_multiple_values(
-                prompt="Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
-                available_values=available_mu_Ef,
-                value_type=float,
+                "Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
+                available_mu_Ef,
+                float,
                 tolerance=0.001
             )
             plot_sigma_vs_T(data, mu_Ef_values, plots_dir, palette, available_mu_Ef, tolerance=0.001)
 
         elif choice == '4':
-            # Plot kappae/tau0 vs T for chosen (mu - E_F) value(s)
             mu_Ef_values = get_multiple_values(
-                prompt="Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
-                available_values=available_mu_Ef,
-                value_type=float,
+                "Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000): ",
+                available_mu_Ef,
+                float,
                 tolerance=0.001
             )
             plot_kappae_vs_T(data, mu_Ef_values, plots_dir, palette, available_mu_Ef, tolerance=0.001)
@@ -435,10 +438,6 @@ python BTP2-extract.py -i data.txt
             print("Exiting the script. Goodbye!")
             sys.exit(0)
 
-        else:
-            print("Invalid choice. Please select a valid option.\n")
-
-        # Ask if the user wants to make another plot or perform another action
         continue_choice = get_user_choice("Do you want to perform another action? (yes/no): ", ['yes', 'no'])
         print()
         if continue_choice == 'no':
