@@ -1,6 +1,6 @@
 Here, I put python script to post-processing the results coming from BoltzTrap2 https://boltztrap2y.readthedocs.io/en/latest/BoltzTraP2.html
 
-BTP2-extract.py allow to take the file *.trace and choose which columns you want to extract converting the chemical potential into eV and subtracting the Fermienergy from it.
+BTP2-extract.py allow to take the file *.trace and choose which columns you want to extract converting the chemical potential into eV and subtracting the Fermi energy from it.
 BTP2-plot.py allows to take the file *.dat from previous extraction and plot.
 
 Please cite BoltzTraP2 code 
