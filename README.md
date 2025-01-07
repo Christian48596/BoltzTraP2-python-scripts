@@ -11,7 +11,7 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
   - [BTP2-plot.py](#btp2-plotpy)
 - [Citations](#citations)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Commit Sign-off Requirement](#CommitSign-offRequirement)
 
 ## Features
 
@@ -51,3 +51,18 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 The full text of the GPL General Public License can be found in file LICENSE.
+
+## Commit Sign-off Requirement
+
+This repository requires all contributors to sign off on their commits to affirm compliance with the Developer Certificate of Origin (DCO). Signing off confirms that:
+
+The contribution is your original work or you have permission to contribute it.
+You agree to the repository’s contribution terms.
+To sign off on a commit, include the following line in your commit message:
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+If using Git locally, you can add the sign-off automatically with:
+```
+git commit --signoff
+```
