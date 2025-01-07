@@ -8,17 +8,17 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
 - [Citations](#citations)
 - [License](#license)
 - [Commit Sign-off Requirement](#CommitSign-offRequirement)
-- [Running the Script](#RunningtheScript)
-    [Command-Line Arguments](#Command-LineArguments)
-    [Interactive Prompts](#InteractivePrompts)
+- [Running the Script](#RunningtheScript)<br>
+    [Command-Line Arguments](#Command-LineArguments)<br>
+    [Interactive Prompts](#InteractivePrompts)<br>
 - [Functionalities](#Functionalities)
-    [1. Unit Conversion](#UnitConvertion)
-    [2. Fermi Energy Adjustment](#FermiEnergyAdjustment)
-    [3. Plotting Options](#PlottingOptions)
-      [Option 1: Seebeck Coefficient vs. (μ - E_F)](#Seebeckvsmu)
-      [Option 2: Seebeck Coefficient vs. Temperature](#SeebeckvsT)
-      [Option 3: Electrical Conductivity vs. Temperature](#ElecCondvsT)
-      [Option 4: Electronic Thermal Conductivity vs. Temperature](#ElecThermCondvsT)
+    [1. Unit Conversion](#UnitConvertion)<br>
+    [2. Fermi Energy Adjustment](#FermiEnergyAdjustment)<br>
+    [3. Plotting Options](#PlottingOptions)<br>
+      [Option 1: Seebeck Coefficient vs. (μ - E_F)](#Seebeckvsmu)<br>
+      [Option 2: Seebeck Coefficient vs. Temperature](#SeebeckvsT)<br>
+      [Option 3: Electrical Conductivity vs. Temperature](#ElecCondvsT)<br>
+      [Option 4: Electronic Thermal Conductivity vs. Temperature](#ElecThermCondvsT)<br>
 - [Output](#Output)
 - [Examples](#Examples)
 - [Troubleshooting](#Troubleshooting)
