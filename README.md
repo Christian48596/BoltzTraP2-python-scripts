@@ -40,7 +40,7 @@ Key Functionalities:
    
 Georg K.H. Madsen, Jesús Carrete, Matthieu J. Verstraete, BoltzTraP2, a program for interpolating band structures and calculating semi-classical transport coefficients, Computer Physics Communications, Volume 231, 2018, Pages 140-145, ISSN 0010-4655, https://doi.org/10.1016/j.cpc.2018.05.010.
 
-3. **This Repository**
+2. **This Repository**
    
 @software{ChT_BTP2-PP,
   author = {Tantardini, Christian},
@@ -78,13 +78,13 @@ git commit --signoff
 ## Prerequisites
 
 Before using the script, ensure that you have the following installed on your system:
-	•	Python 3.6 or higher
-	•	Required Python Packages:
-	•	pandas
-	•	numpy
-	•	matplotlib
-	•	seaborn
-	•	argparse
+- Python 3.6 or higher
+- Required Python Packages:<br>
+• pandas<br>
+• numpy<br>
+• matplotlib<br>
+• seaborn<br>
+• argparse<br>
 
 You can install the required packages using pip:
 ```
@@ -113,8 +113,8 @@ source env/bin/activate  # On Windows, use `env\Scripts\activate`
 
 **Command-Line Arguments**
 
-The script accepts the following command-line argument:
-	•	-i, --input: (Required) Path to the input .trace file containing the data.
+The script accepts the following command-line argument:<br>
+• -i, --input: (Required) Path to the input .trace file containing the data.
 
 Example:
 
@@ -126,112 +126,114 @@ python BTP2-extract.py -i results.trace
 
 After executing the script with the required input file, you will be guided through a series of interactive prompts:
 
-1. **Contact Information Display**:
+**Contact Information Display**:
   The script begins by displaying the contact information of Dr. Christian Tantardini.
 
-2. **Fermi Energy Subtraction**:
-	•	Prompt: Do you want to subtract the Fermi energy from μ? (yes/no)
-	•	Action: If you choose yes, you will be prompted to enter the Fermi energy value in eV.
+**Fermi Energy Subtraction**:
+• Prompt: Do you want to subtract the Fermi energy from μ? (yes/no)<br>
+• Action: If you choose yes, you will be prompted to enter the Fermi energy value in eV.<br>
 
-3. **Plotting Options**:
-  You will be presented with a menu to select the type of plot you wish to generate:
+**Plotting Options**:
+  You will be presented with a menu to select the type of plot you wish to generate:<br>
 
 Select a plotting option:
-1. Plot S vs (μ - E_F) for chosen T(s) and save .csv file.
-2. Plot S vs T for chosen (μ - E_F) value(s) and save .csv file.
-3. Plot σ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.
-4. Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.
-5. Exit.
+1. Plot S vs (μ - E_F) for chosen T(s) and save .csv file.<br>
+2. Plot S vs T for chosen (μ - E_F) value(s) and save .csv file.<br>
+3. Plot σ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.<br>
+4. Plot κₑ/τ₀ vs T for chosen (μ - E_F) value(s) and save .csv file.<br>
+5. Exit.<br>
+Input: Enter the number corresponding to your choice (1-5).<br>
 
-	•	Input: Enter the number corresponding to your choice (1-5).
+**Additional Inputs Based on Plot Selection**:
+• Option 1:<br>
+• Prompt: Enter temperature(s) in K separated by commas (e.g., 300,400,500)<br>
+• Options 2-4:<br>
+• Prompt: Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000)<br>
+After entering the required values, the script will generate the corresponding plots and save the data used for plotting as .csv files in the plots directory.<br>
 
-4. **Additional Inputs Based on Plot Selection**:
-	•	Option 1:
-	•	Prompt: Enter temperature(s) in K separated by commas (e.g., 300,400,500)
-	•	Options 2-4:
-	•	Prompt: Enter (μ - E_F) value(s) in eV separated by commas (e.g., 1.000,2.000,3.000)
-After entering the required values, the script will generate the corresponding plots and save the data used for plotting as .csv files in the plots directory.
+**Continuation Prompt**:
+After completing an action, you will be asked whether you want to perform another action:<br>
+• Prompt: Do you want to perform another action? (yes/no)<br>
+• Action: If yes, the plotting menu will be displayed again. If no, the script will exit.<br>
 
-5. **Continuation Prompt**:
-After completing an action, you will be asked whether you want to perform another action:
-	•	Prompt: Do you want to perform another action? (yes/no)
-	•	Action: If yes, the plotting menu will be displayed again. If no, the script will exit.
+*Exiting the Script*<br>
 
-Exiting the Script
-
-At any point, you can choose to exit the script by selecting the appropriate option from the menu or by declining to perform another action when prompted.
+At any point, you can choose to exit the script by selecting the appropriate option from the menu or by declining to perform another action when prompted.<br>
 
 ## Functionalities
 
 1. **Unit Conversion**
-	•	Automatic Detection: The script reads the header of the input file to detect the unit of Ef. Supported units are Rydberg (Ry), Hartree (Ha), and electron volts (eV).
-	•	Conversion to eV: If Ef is not in eV, it is converted using the following factors:
-	•	1 Rydberg (Ry) = 13.605698 eV
-	•	1 Hartree (Ha) = 27.211386 eV
+   
+• Automatic Detection: The script reads the header of the input file to detect the unit of Ef. Supported units are Rydberg (Ry), Hartree (Ha), and electron volts (eV).<br>
+• Conversion to eV: If Ef is not in eV, it is converted using the following factors:<br>
+• 1 Rydberg (Ry) = 13.605698 eV<br>
+• 1 Hartree (Ha) = 27.211386 eV<br>
 
 2. **Fermi Energy Adjustment**
-	•	Optional Subtraction: Users can choose to subtract a specified Fermi energy value from the chemical potential (μ). This is useful for aligning the chemical potential with the Fermi level in your analysis.
+
+• Optional Subtraction: Users can choose to subtract a specified Fermi energy value from the chemical potential (μ). This is useful for aligning the chemical potential with the Fermi level in your analysis.<br>
 
 3. **Plotting Options**
 
-The script offers four plotting options:
+The script offers four plotting options:<br>
 
 **Option 1: Seebeck Coefficient vs. (μ - E_F)**
-	•	Description: Plots the Seebeck coefficient (S) against the adjusted chemical potential (μ - E_F) for selected temperatures.
-	•	Inputs Required:
-	•	Temperature(s) in Kelvin (K).
-	•	Output:
-	•	Plot image files (.png and .pdf) saved in the plots directory.
-	•	Corresponding data used for plotting saved as .csv files.
+	• Description: Plots the Seebeck coefficient (S) against the adjusted chemical potential (μ - E_F) for selected temperatures.<br>
+	• Inputs Required:<br>
+	• Temperature(s) in Kelvin (K).<br>
+	• Output:<br>
+	• Plot image files (.png and .pdf) saved in the plots directory.<br>
+	• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 2: Seebeck Coefficient vs. Temperature**
-	•	Description: Plots the Seebeck coefficient (S) against temperature (T) for selected (μ - E_F) values.
-	•	Inputs Required:
-	•	(μ - E_F) value(s) in electron volts (eV).
-	•	Output:
-	•	Plot image files (.png and .pdf) saved in the plots directory.
-	•	Corresponding data used for plotting saved as .csv files.
+	• Description: Plots the Seebeck coefficient (S) against temperature (T) for selected (μ - E_F) values.<br>
+	• Inputs Required:<br>
+	• (μ - E_F) value(s) in electron volts (eV).<br>
+	• Output:<br>
+	• Plot image files (.png and .pdf) saved in the plots directory.<br>
+	• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 3: Electrical Conductivity vs. Temperature**
-	•	Description: Plots the electrical conductivity (σ/τ₀) against temperature (T) for selected (μ - E_F) values.
-	•	Inputs Required:
-	•	(μ - E_F) value(s) in electron volts (eV).
-	•	Output:
-	•	Plot image files (.png and .pdf) saved in the plots directory.
-	•	Corresponding data used for plotting saved as .csv files.
+	• Description: Plots the electrical conductivity (σ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
+	• Inputs Required:<br>
+	• (μ - E_F) value(s) in electron volts (eV).<br>
+	• Output:<br>
+	• Plot image files (.png and .pdf) saved in the plots directory.<br>
+	• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 4: Electronic Thermal Conductivity vs. Temperature**
-	•	Description: Plots the electronic thermal conductivity (κₑ/τ₀) against temperature (T) for selected (μ - E_F) values.
-	•	Inputs Required:
-	•	(μ - E_F) value(s) in electron volts (eV).
-	•	Output:
-	•	Plot image files (.png and .pdf) saved in the plots directory.
-	•	Corresponding data used for plotting saved as .csv files.
+	• Description: Plots the electronic thermal conductivity (κₑ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
+	• Inputs Required:<br>
+	• (μ - E_F) value(s) in electron volts (eV).<br>
+	• Output:<br>
+	• Plot image files (.png and .pdf) saved in the plots directory.<br>
+	• Corresponding data used for plotting saved as .csv files.<br>
 
 ## Output
-  • Plots Directory: All generated plots and corresponding .csv data files are saved in the plots directory within the script’s root folder.
-  • Plot Files: Each plot is saved in both .png and .pdf formats for versatility in usage.
-  • CSV Files: The data used for each plot is saved as a .csv file, allowing for further analysis or record-keeping.
+  • Plots Directory: All generated plots and corresponding .csv data files are saved in the plots directory within the script’s root folder.<br>
+  • Plot Files: Each plot is saved in both .png and .pdf formats for versatility in usage.<br>
+  • CSV Files: The data used for each plot is saved as a .csv file, allowing for further analysis or record-keeping.<br>
 
 ## Examples
 
 **Example 1: Basic Usage**
 
-Process a .trace file without subtracting Fermi energy and generate a Seebeck coefficient vs. temperature plot.
-
+Process a .trace file without subtracting Fermi energy and generate a Seebeck coefficient vs. temperature plot.<br>
+```
 python BTP2-extract.py -i results.trace
+```
 
-*Interactive Steps*:
-	1.	Fermi Energy Subtraction:
-	•	Input: no
-	2.	Select Plotting Option:
-	•	Input: 2
-	3.	Enter (μ - E_F) Values:
-	•	Input: 1.000,2.000,3.000
-	4.	Save and Exit:
-	•	Input: no
+*Interactive Steps*:<br>
+	1.	Fermi Energy Subtraction:<br>
+	•	Input: no<br>
+	2.	Select Plotting Option:<br>
+	•	Input: 2<br>
+	3.	Enter (μ - E_F) Values:<br>
+	•	Input: 1.000,2.000,3.000<br>
+	4.	Save and Exit:<br>
+	•	Input: no<br>
 
-*Outcome*:
+*Outcome*:<br>
 	•	Generates S_vs_T.png and S_vs_T.pdf in the plots directory.
 	•	Saves corresponding .csv data files.
 
