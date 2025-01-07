@@ -4,10 +4,10 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
 
 ## Table of Contents
 
+- [Script Overview](#ScriptOverview)
 - [Citations](#citations)
 - [License](#license)
 - [Commit Sign-off Requirement](#CommitSign-offRequirement)
-- [Script Overview](#ScriptOverview)
 - [Running the Script](#RunningtheScript)
     [Command-Line Arguments](#Command-LineArguments)
     [Interactive Prompts](#InteractivePrompts)
@@ -22,6 +22,17 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
 - [Output](#Output)
 - [Examples](#Examples)
 - [Troubleshooting](#Troubleshooting)
+
+## Script Overview
+
+The script provided (BTP2-extract.py) is designed to process BoltzTraP2 output files (*.trace), perform unit conversions, adjust the chemical potential by subtracting the Fermi energy, and generate various plots for data analysis.
+
+Key Functionalities:
+	•	Load and Process Data: Reads the input data file and processes it into a usable format.
+	•	Unit Conversion: Automatically detects and converts the unit of Ef (Rydberg, Hartree, or eV) to eV.
+	•	Fermi Energy Adjustment: Optionally subtracts the provided Fermi energy from the chemical potential.
+	•	Data Conversion: Converts the Seebeck coefficient from V/K to µV/K.
+	•	Plot Generation: Offers multiple plotting options to visualize different physical properties.
 
 ## Citations
 
@@ -97,17 +108,6 @@ It’s recommended to use a virtual environment to manage dependencies.
 python3 -m venv env
 source env/bin/activate  # On Windows, use `env\Scripts\activate`
 ```
-
-## Script Overview
-
-The script provided (BTP2-extract.py) is designed to process BoltzTraP2 output files (*.trace), perform unit conversions, adjust the chemical potential by subtracting the Fermi energy, and generate various plots for data analysis.
-
-Key Functionalities:
-	•	Load and Process Data: Reads the input data file and processes it into a usable format.
-	•	Unit Conversion: Automatically detects and converts the unit of Ef (Rydberg, Hartree, or eV) to eV.
-	•	Fermi Energy Adjustment: Optionally subtracts the provided Fermi energy from the chemical potential.
-	•	Data Conversion: Converts the Seebeck coefficient from V/K to µV/K.
-	•	Plot Generation: Offers multiple plotting options to visualize different physical properties.
 
 ## Running the Script
 
@@ -264,20 +264,24 @@ python BTP2-extract.py -i results.trace
 
 ## Troubleshooting
 
-  •	Missing Dependencies:
-	•	Error: ModuleNotFoundError: No module named 'pandas'
-	•	Solution: Install the missing package using pip install pandas.
-	•	Invalid Input File:
-	•	Error: Error loading data: [Error Details]
-	•	Solution: Ensure the input file path is correct and the file is formatted as expected.
-	•	No Data Found for Selected Parameters:
-	•	Warning: Warning: No data found for T = 600 K.
-	•	Solution: Verify that the entered temperature or (μ - E_F) values exist in the dataset.
-	•	Unit Detection Failure:
-	•	Message: Ef unit not specified in the header. Assuming 'Ef[eV]'.
-	•	Solution: Ensure that the input file header includes the unit of Ef. If not, the script defaults to eV.
-	•	Plot Not Generated:
-	•	Message: No plots were generated for S vs μ - E_F due to missing data.
-	•	Solution: Check the entered parameters and ensure they match the data within the specified tolerance.
+**Missing Dependencies**:
+*Error*: ModuleNotFoundError: No module named 'pandas'
+*Solution*: Install the missing package using pip install pandas.
+
+**Invalid Input File**:
+*Error*: Error loading data: [Error Details]
+*Solution*: Ensure the input file path is correct and the file is formatted as expected.
+
+**No Data Found for Selected Parameters**:
+*Warning*: Warning: No data found for T = 600 K.
+*Solution*: Verify that the entered temperature or (μ - E_F) values exist in the dataset.
+
+**Unit Detection Failure**:
+*Message*: Ef unit not specified in the header. Assuming 'Ef[eV]'.
+*Solution*: Ensure that the input file header includes the unit of Ef. If not, the script defaults to eV.
+
+**Plot Not Generated**:
+*Message*: No plots were generated for S vs μ - E_F due to missing data.
+*Solution*: Check the entered parameters and ensure they match the data within the specified tolerance.
 
  
