@@ -127,13 +127,16 @@ python BTP2-extract.py -i results.trace
 After executing the script with the required input file, you will be guided through a series of interactive prompts:
 
 **Contact Information Display**:
+
   The script begins by displaying the contact information of Dr. Christian Tantardini.
 
 **Fermi Energy Subtraction**:
+
 • Prompt: Do you want to subtract the Fermi energy from μ? (yes/no)<br>
 • Action: If you choose yes, you will be prompted to enter the Fermi energy value in eV.<br>
 
 **Plotting Options**:
+
   You will be presented with a menu to select the type of plot you wish to generate:<br>
 
 Select a plotting option:
@@ -145,6 +148,7 @@ Select a plotting option:
 Input: Enter the number corresponding to your choice (1-5).<br>
 
 **Additional Inputs Based on Plot Selection**:
+
 • Option 1:<br>
 • Prompt: Enter temperature(s) in K separated by commas (e.g., 300,400,500)<br>
 • Options 2-4:<br>
@@ -152,6 +156,7 @@ Input: Enter the number corresponding to your choice (1-5).<br>
 After entering the required values, the script will generate the corresponding plots and save the data used for plotting as .csv files in the plots directory.<br>
 
 **Continuation Prompt**:
+
 After completing an action, you will be asked whether you want to perform another action:<br>
 • Prompt: Do you want to perform another action? (yes/no)<br>
 • Action: If yes, the plotting menu will be displayed again. If no, the script will exit.<br>
@@ -178,48 +183,53 @@ At any point, you can choose to exit the script by selecting the appropriate opt
 The script offers four plotting options:<br>
 
 **Option 1: Seebeck Coefficient vs. (μ - E_F)**
-	• Description: Plots the Seebeck coefficient (S) against the adjusted chemical potential (μ - E_F) for selected temperatures.<br>
-	• Inputs Required:<br>
-	• Temperature(s) in Kelvin (K).<br>
-	• Output:<br>
-	• Plot image files (.png and .pdf) saved in the plots directory.<br>
-	• Corresponding data used for plotting saved as .csv files.<br>
+
+• Description: Plots the Seebeck coefficient (S) against the adjusted chemical potential (μ - E_F) for selected temperatures.<br>
+• Inputs Required:<br>
+• Temperature(s) in Kelvin (K).<br>
+• Output:<br>
+• Plot image files (.png and .pdf) saved in the plots directory.<br>
+• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 2: Seebeck Coefficient vs. Temperature**
-	• Description: Plots the Seebeck coefficient (S) against temperature (T) for selected (μ - E_F) values.<br>
-	• Inputs Required:<br>
-	• (μ - E_F) value(s) in electron volts (eV).<br>
-	• Output:<br>
-	• Plot image files (.png and .pdf) saved in the plots directory.<br>
-	• Corresponding data used for plotting saved as .csv files.<br>
+
+• Description: Plots the Seebeck coefficient (S) against temperature (T) for selected (μ - E_F) values.<br>
+• Inputs Required:<br>
+• (μ - E_F) value(s) in electron volts (eV).<br>
+• Output:<br>
+• Plot image files (.png and .pdf) saved in the plots directory.<br>
+• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 3: Electrical Conductivity vs. Temperature**
-	• Description: Plots the electrical conductivity (σ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
-	• Inputs Required:<br>
-	• (μ - E_F) value(s) in electron volts (eV).<br>
-	• Output:<br>
-	• Plot image files (.png and .pdf) saved in the plots directory.<br>
-	• Corresponding data used for plotting saved as .csv files.<br>
+
+• Description: Plots the electrical conductivity (σ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
+• Inputs Required:<br>
+• (μ - E_F) value(s) in electron volts (eV).<br>
+• Output:<br>
+• Plot image files (.png and .pdf) saved in the plots directory.<br>
+• Corresponding data used for plotting saved as .csv files.<br>
 
 **Option 4: Electronic Thermal Conductivity vs. Temperature**
-	• Description: Plots the electronic thermal conductivity (κₑ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
-	• Inputs Required:<br>
-	• (μ - E_F) value(s) in electron volts (eV).<br>
-	• Output:<br>
-	• Plot image files (.png and .pdf) saved in the plots directory.<br>
-	• Corresponding data used for plotting saved as .csv files.<br>
+
+• Description: Plots the electronic thermal conductivity (κₑ/τ₀) against temperature (T) for selected (μ - E_F) values.<br>
+• Inputs Required:<br>
+• (μ - E_F) value(s) in electron volts (eV).<br>
+• Output:<br>
+• Plot image files (.png and .pdf) saved in the plots directory.<br>
+• Corresponding data used for plotting saved as .csv files.<br>
 
 ## Output
-  • Plots Directory: All generated plots and corresponding .csv data files are saved in the plots directory within the script’s root folder.<br>
-  • Plot Files: Each plot is saved in both .png and .pdf formats for versatility in usage.<br>
-  • CSV Files: The data used for each plot is saved as a .csv file, allowing for further analysis or record-keeping.<br>
+  
+• Plots Directory: All generated plots and corresponding .csv data files are saved in the plots directory within the script’s root folder.<br>
+• Plot Files: Each plot is saved in both .png and .pdf formats for versatility in usage.<br>
+• CSV Files: The data used for each plot is saved as a .csv file, allowing for further analysis or record-keeping.<br>
 
 ## Examples
 
 **Example 1: Basic Usage**
 
 Process a .trace file without subtracting Fermi energy and generate a Seebeck coefficient vs. temperature plot.<br>
-```
+```bash
 python BTP2-extract.py -i results.trace
 ```
 
@@ -234,56 +244,62 @@ python BTP2-extract.py -i results.trace
 	•	Input: no<br>
 
 *Outcome*:<br>
-	•	Generates S_vs_T.png and S_vs_T.pdf in the plots directory.
-	•	Saves corresponding .csv data files.
+	•	Generates S_vs_T.png and S_vs_T.pdf in the plots directory.<br>
+	•	Saves corresponding .csv data files.<br>
 
 **Example 2: Advanced Usage with Fermi Energy Subtraction**
 
 Process a .trace file, subtract a Fermi energy of 5.0 eV, and generate multiple plots.
-
+```bash
 python BTP2-extract.py -i results.trace
+```
 
-*Interactive Steps*:
-	1.	Fermi Energy Subtraction:
-	•	Input: yes
-	•	Fermi Energy Value: 5.0
-	2.	Select Plotting Option:
-	•	Input: 1
-	3.	Enter Temperature Values:
-	•	Input: 300,400,500
-	4.	Choose to Perform Another Action:
-	•	Input: yes
-	5.	Select Another Plotting Option:
-	•	Input: 3
-	6.	Enter (μ - E_F) Values:
-	•	Input: 1.500,2.500
-	7.	Choose to Perform Another Action:
-	•	Input: no
+*Interactive Steps*:<br>
+	1.	Fermi Energy Subtraction:<br>
+	•	Input: yes<br>
+	•	Fermi Energy Value: 5.0<br>
+	2.	Select Plotting Option:<br>
+	•	Input: 1<br>
+	3.	Enter Temperature Values:<br>
+	•	Input: 300,400,500<br>
+	4.	Choose to Perform Another Action:<br>
+	•	Input: yes<br>
+	5.	Select Another Plotting Option:<br>
+	•	Input: 3<br>
+	6.	Enter (μ - E_F) Values:<br>
+	•	Input: 1.500,2.500<br>
+	7.	Choose to Perform Another Action:<br>
+	•	Input: no<br>
 
-*Outcome*:
-	•	Generates S_vs_mu_Ef.png, S_vs_mu_Ef.pdf, sigma_vs_T.png, and sigma_vs_T.pdf in the plots directory.
-	•	Saves corresponding .csv data files for each plot.
+*Outcome*:<br>
+	•	Generates S_vs_mu_Ef.png, S_vs_mu_Ef.pdf, sigma_vs_T.png, and sigma_vs_T.pdf in the plots directory.<br>
+	•	Saves corresponding .csv data files for each plot.<br>
 
 ## Troubleshooting
 
 **Missing Dependencies**:
-*Error*: ModuleNotFoundError: No module named 'pandas'
-*Solution*: Install the missing package using pip install pandas.
+
+*Error*: ModuleNotFoundError: No module named 'pandas'<br>
+*Solution*: Install the missing package using pip install pandas.<br>
 
 **Invalid Input File**:
-*Error*: Error loading data: [Error Details]
-*Solution*: Ensure the input file path is correct and the file is formatted as expected.
+
+*Error*: Error loading data: [Error Details]<br>
+*Solution*: Ensure the input file path is correct and the file is formatted as expected.<br>
 
 **No Data Found for Selected Parameters**:
-*Warning*: Warning: No data found for T = 600 K.
-*Solution*: Verify that the entered temperature or (μ - E_F) values exist in the dataset.
+
+*Warning*: Warning: No data found for T = 600 K.<br>
+*Solution*: Verify that the entered temperature or (μ - E_F) values exist in the dataset.<br>
 
 **Unit Detection Failure**:
-*Message*: Ef unit not specified in the header. Assuming 'Ef[eV]'.
-*Solution*: Ensure that the input file header includes the unit of Ef. If not, the script defaults to eV.
+
+*Message*: Ef unit not specified in the header. Assuming 'Ef[eV]'.<br>
+*Solution*: Ensure that the input file header includes the unit of Ef. If not, the script defaults to eV.<br>
 
 **Plot Not Generated**:
-*Message*: No plots were generated for S vs μ - E_F due to missing data.
-*Solution*: Check the entered parameters and ensure they match the data within the specified tolerance.
+
+*Message*: No plots were generated for S vs μ - E_F due to missing data.<br>
+*Solution*: Check the entered parameters and ensure they match the data within the specified tolerance.<br>
 
  
