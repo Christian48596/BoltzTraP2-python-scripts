@@ -27,12 +27,12 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
 
 The script provided (BTP2-extract.py) is designed to process BoltzTraP2 output files (*.trace), perform unit conversions, adjust the chemical potential by subtracting the Fermi energy, and generate various plots for data analysis.
 
-Key Functionalities:
-	•	Load and Process Data: Reads the input data file and processes it into a usable format.
-	•	Unit Conversion: Automatically detects and converts the unit of Ef (Rydberg, Hartree, or eV) to eV.
-	•	Fermi Energy Adjustment: Optionally subtracts the provided Fermi energy from the chemical potential.
-	•	Data Conversion: Converts the Seebeck coefficient from V/K to µV/K.
-	•	Plot Generation: Offers multiple plotting options to visualize different physical properties.
+Key Functionalities:<br>
+	•	Load and Process Data: Reads the input data file and processes it into a usable format.<br>
+	•	Unit Conversion: Automatically detects and converts the unit of Ef (Rydberg, Hartree, or eV) to eV.<br>
+	•	Fermi Energy Adjustment: Optionally subtracts the provided Fermi energy from the chemical potential.<br>
+	•	Data Conversion: Converts the Seebeck coefficient from V/K to µV/K.<br>
+	•	Plot Generation: Offers multiple plotting options to visualize different physical properties.<br>
 
 ## Citations
 
