@@ -7,6 +7,7 @@ Welcome to the **BoltzTraP2 Post-Processing** repository! This project provides 
 - [Script Overview](#ScriptOverview)
 - [Citations](#citations)
 - [License](#license)
+- [Installation](#Installation)
 - [Commit Sign-off Requirement](#CommitSign-offRequirement)
 - [Running the Script](#RunningtheScript)<br>
     [Command-Line Arguments](#Command-LineArguments)<br>
@@ -61,21 +62,9 @@ You should have received a copy of the GNU General Public License along with thi
 
 The full text of the GPL General Public License can be found in file LICENSE.
 
-## Commit Sign-off Requirement
+## Installation
 
-This repository requires all contributors to sign off on their commits to affirm compliance with the Developer Certificate of Origin (DCO). Signing off confirms that:
-
-The contribution is your original work or you have permission to contribute it.
-You agree to the repository’s contribution terms.
-To sign off on a commit, include the following line in your commit message:
-```
-Signed-off-by: Your Name <your.email@example.com>
-```
-If using Git locally, you can add the sign-off automatically with:
-```
-git commit --signoff
-```
-## Prerequisites
+**Prerequisites**
 
 Before using the script, ensure that you have the following installed on your system:
 - Python 3.6 or higher
@@ -91,8 +80,6 @@ You can install the required packages using pip:
 pip install pandas numpy matplotlib seaborn argparse
 ```
 
-## Installation
-
 1. **Clone the Repository**
 
 ```
@@ -100,13 +87,30 @@ git clone https://github.com/Christian48596/BoltzTraP2-post-processing.git
 cd BoltzTraP2-post-processing
 ```
 
-2.	**(Optional) Create a Virtual Environment**
+2. **Make the Installation Script Executable**
 
-It’s recommended to use a virtual environment to manage dependencies.
+```
+chmod +x install.sh
+```
 
-```bash
-python3 -m venv env
-source env/bin/activate  # On Windows, use `env\Scripts\activate`
+3. **Run the Installation Script**
+```
+./install.sh
+```
+
+## Commit Sign-off Requirement
+
+This repository requires all contributors to sign off on their commits to affirm compliance with the Developer Certificate of Origin (DCO). Signing off confirms that:
+
+The contribution is your original work or you have permission to contribute it.
+You agree to the repository’s contribution terms.
+To sign off on a commit, include the following line in your commit message:
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+If using Git locally, you can add the sign-off automatically with:
+```
+git commit --signoff
 ```
 
 ## Running the Script
